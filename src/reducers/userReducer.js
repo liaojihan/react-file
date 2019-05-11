@@ -5,7 +5,7 @@ const initialUser= {
     infoList: [], // 当前页数据
     info: {}, // user对象
     total: 0, // 数据条数
-    loadging: true
+    loading: true
 }
 
 export default function (state = initialUser, action) {
@@ -20,12 +20,16 @@ export default function (state = initialUser, action) {
         case type.USER_INFO_DELETE:
             return {
                 ...state,
-                infoList: action.payload
+                infoList: action.payload.infoList,
+                total: action.payload.total,
+                loading: false
             }
         case type.USER_INFO_ADD:
             return {
                 ...state,
-                infoList: action.payload
+                infoList: action.payload.infoList,
+                total: action.payload.total,
+                loading: false
             }
         case type.USER_INFO_GET: 
             return {
@@ -35,7 +39,9 @@ export default function (state = initialUser, action) {
         case type.USER_INFO_UPDATE:
             return {
                 ...state,
-                infoList: action.payload
+                infoList: action.payload.infoList,
+                total: action.payload.total,
+                loading: false
             }
         case type.USER_INFO_CLEAR: 
             return {

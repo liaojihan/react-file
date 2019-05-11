@@ -48,9 +48,9 @@ class TableItem extends Component {
             form.resetFields();
             this.state.actionItem
                 ?
-                this.props.userInfoAdd(values, this.props.infoList)
+                this.props.userInfoAdd(values, { ...this.state.pager })
                 :
-                this.props.userInfoUpdate(values, this.props.infoList)
+                this.props.userInfoUpdate(values, { ...this.state.pager })
             this.setState({ visible: false });
         });
     }
@@ -60,7 +60,7 @@ class TableItem extends Component {
     }
 
     deleteUser = index => {
-        this.props.userInfoDelete(index, this.props.infoList)
+        this.props.userInfoDelete(index, { ...this.state.pager })
     }
 
     showAddModal = () => {
@@ -93,7 +93,6 @@ class TableItem extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div style={{ padding: 12, background: '#fff', minHeight: 360 }}>
                 <div style={{ marginBottom: 12}}>
@@ -102,7 +101,8 @@ class TableItem extends Component {
                 <Table dataSource={this.props.infoList} onChange={this.tableChangeHandler}
                     pagination={{
                         ...this.state.pager,
-                        total: this.props.total
+                        total: this.props.total,
+                        showQuickJumper: true
                     }}
                     loading={this.props.loading}
                 >

@@ -1,8 +1,8 @@
 import * as type from './type/userType'
 import {
-    usetInfoList, InfoDelete, initUserList,
+    infoList, InfoDelete,
     infoAdd, infoGet, infoUpdate
-} from "../util/index"
+} from "../util/user"
 
 /**
  * 分发 user action
@@ -13,22 +13,27 @@ export const userInfoList = (pager) => (dispatch) => {
         type:type.USER_INFO_LOAD
     })
     setTimeout(() => {
-        const infoList = usetInfoList(pager)
+        const list = infoList(pager)
         dispatch({
             type: type.USER_INFO_LIST,
-            payload: infoList
+            payload: list
         })
     }, 2000)
 
 }
 
-export const userInfoDelete = (index, list) => (dispatch) => {
-    const infoList = InfoDelete(index, list)
-    initUserList(infoList)
+export const userInfoDelete = (index, pager) => (dispatch) => {
     dispatch({
-        type: type.USER_INFO_DELETE,
-        payload: infoList
+        type:type.USER_INFO_LOAD
     })
+    setTimeout( () => {
+        InfoDelete(index)
+        const list = infoList(pager)
+        dispatch({
+            type: type.USER_INFO_DELETE,
+            payload: list
+        })
+    }, 2000)
 }
 
 export const clearForm = () => (dispatch) => {
@@ -38,13 +43,18 @@ export const clearForm = () => (dispatch) => {
     })
 }
 
-export const userInfoAdd = (record, list) => (dispatch) => {
-    const infoList = infoAdd(record, list)
-    initUserList(infoList)
+export const userInfoAdd = (record, pager) => (dispatch) => {
     dispatch({
-        type: type.USER_INFO_ADD,
-        payload: infoList
+        type:type.USER_INFO_LOAD
     })
+    setTimeout(() => {
+        infoAdd(record)
+        const list = infoList(pager)
+        dispatch({
+            type: type.USER_INFO_ADD,
+            payload: list
+        }) 
+    }, 2000);
 }
 
 
@@ -56,13 +66,18 @@ export const getUser = (index, list) => (dispatch) => {
     })
 }
 
-export const userInfoUpdate = (record, list) => (dispatch) => {
-    const infoList = infoUpdate(record, list)
-    initUserList(infoList)
+export const userInfoUpdate = (record, pager) => (dispatch) => {
     dispatch({
-        type: type.USER_INFO_UPDATE,
-        payload: infoList
-    })
+        type: type.USER_INFO_LOAD
+    })  
+    setTimeout(() => {
+        infoUpdate(record)
+        const list = infoList(pager)
+        dispatch({
+            type: type.USER_INFO_UPDATE,
+            payload: list
+        })
+    }, 2000);
 }
 
 export const userInfoLoad = () => dispatch => {

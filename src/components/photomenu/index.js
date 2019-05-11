@@ -94,7 +94,6 @@ class PhotoMenu extends Component {
     }
 
     _whenPhotosLoaded(photos) {
-        console.log(photos)
         return Promise.all(photos.map(photo => new Promise((resolve) => {
             const image = document.createElement('img');
             image.src = photo.src;
